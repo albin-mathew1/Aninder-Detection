@@ -1,0 +1,38 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+
+    <title>ANINDER</title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+
+    <link rel="stylesheet" type="text/css" href="{% static 'css/style3.css' %}"/>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+        <div class="shape"></div>
+    </div>
+    <form method="POST">
+        <a href="{% url 'login' %}" ><h3>ANINDER</h3></a>
+        {% csrf_token %}
+        <h6>Forest Department Login</h6>
+        <label for="Name">Name<Datag></Datag></label>
+        <input type="text" placeholder="Name" name="Name" id="Name">
+
+
+        <label for="Forest Division">Forest Division<Datag></Datag></label>
+        <input type="text" placeholder="Division" name="Division" id="Division">
+
+        <label for="Designation">Designation</label>
+        <input type="Designation" placeholder="Designation" id="Designation" name="Designation">
+
+        <label for="email">Email</label>
+        <input type="email" placeholder="Email" name="Email" id="Email">
+
+        <button type="submit">Log In</button>
+    </form>
+</body>
+</html>

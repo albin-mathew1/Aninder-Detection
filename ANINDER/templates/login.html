@@ -1,0 +1,74 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ANINDER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.css" integrity="sha512-xA5E4X2R5cXU1J7X0UL2u1dKxYHY2F4CVSqu9koqJvnu7J3yz1m2RAsn9xwuW4oESAbD9NIZ/zRduM7Z/CEIrg==" crossorigin="">
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script src="https://unpkg.com/esri-leaflet@2.5.0/dist/esri-leaflet.js"
+    integrity="sha512-ucw7Grpc+iEQZa711gcjgMBnmd9qju1CICsRaryvX7HJklK0pGl/prxKvtHwpgm5ZHdvAil7YPxI1oWPOWK3UQ=="
+    crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+    crossorigin="">
+  <script src="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.js"
+    integrity="sha512-HrFUyCEtIpxZloTgEKKMq4RFYhxjJkCiF5sDxuAokklOeZ68U2NPfh4MFtyIVWlsKtVbK5GD2/JzFyAfvT5ejA=="
+    crossorigin=""></script>
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <link rel= "stylesheet" type="text/css" href="{% static 'css/style3.css' %}"/>
+</head>
+<body>
+    <div class="background">
+        <div class="shape"></div>
+    </div>
+    <form method="POST">
+        {% csrf_token %}
+        <h3>ANINDER</h3>
+        <label for="Mobile Number">Mobile Number</label>
+        <input type="text" placeholder="Mobile number(with country code)" id="Mobile_Number" name="Mobile_Number" required>
+        <label for="location">Select Location from map</label>
+				<div id="map" class="location-map"></div>
+				<input type="hidden" id="lat" name="lat" required>
+				<input type="hidden" id="lng" name="lng" required>
+        <button type="submit">Log In</button></a>
+        <a href="{% url 'forest_department_login' %}" >Are you a forest department official login here</a>
+    </form>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-T6Npkb6VdZP9By4q3o8P4yBkEJm1N2mROIVR8W19ZK7DrZPLXrkzyylHQvCT8aLquybB+BAkUsszGGsA1mzhgQ==" crossorigin=""></script>
+	<script>
+    if ('{{data}}' === '1') {
+            alert('invalid phone number');
+        }
+    if ('{{loc}}' === '1') {
+            alert('select your location from map!');
+        }
+        var map = L.map('map').setView([10.2718,76.0130], 6.5);
+
+  L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+
+  var marker = null;
+
+    map.on('click', function(e) {
+      if (marker) {
+        // If a marker already exists, update its location
+        marker.setLatLng(e.latlng);
+      } else {
+        // If a marker doesn't exist, create a new marker
+        marker = L.marker(e.latlng).addTo(map);
+      }
+    var l1=parseFloat(e.latlng['lat']);
+    var l2=parseFloat(e.latlng['lng']);
+    document.getElementById("lat").value=l1;
+    document.getElementById("lng").value=l2;
+});
+</script>
+</body>
+</html>

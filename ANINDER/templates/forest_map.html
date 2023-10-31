@@ -1,0 +1,93 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>ANINDER</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"
+    integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A=="
+    crossorigin=""/>
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"
+    integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA=="
+    crossorigin=""></script>
+  <script src="https://unpkg.com/esri-leaflet@2.5.0/dist/esri-leaflet.js"
+    integrity="sha512-ucw7Grpc+iEQZa711gcjgMBnmd9qju1CICsRaryvX7HJklK0pGl/prxKvtHwpgm5ZHdvAil7YPxI1oWPOWK3UQ=="
+    crossorigin=""></script>
+  <link rel="stylesheet" href="https://unpkg.com/esri-leaflet-geocoder@2.3.3/dist/esri-leaflet-geocoder.css"
+    integrity="sha512-IM3Hs+feyi40yZhDH6kV8vQMg4Fh20s9OzInIIAc4nx7aMYMfo+IenRUekoYsHZqGkREUgx0VvlEsgm7nCDW9g=="
+    crossorigin="">
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js"></script>
+    <style>
+        #map {
+            width: 100%;
+            height: 90vh;
+            position: bottom;
+            outline: black;
+        }
+        body {
+            margin: 0;
+            padding: 0;
+            font-family: 'Poppins', sans-serif;
+        }
+        .location-map{
+            width:80%; 
+            height: 90%; 
+            position: bottom; 
+            outline:black;
+            align-items:left;
+        }
+        .center {
+      text-align: center;
+    }
+    </style>
+    <link rel="stylesheet" href="{% static 'css/style.css'%}">
+</head>
+<body>
+	<header id="fh5co-header" role="banner">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12">
+					<a href="{% url 'home' %}" class="fh5co-menu-btn js-fh5co-menu-btn">Home<i class="icon-menu"></i></a>
+					<a class="navbar-brand" href="{% url 'home' %}">ANIMAL INTRUSION MAP</a>		
+				</div>
+			</div>
+		</div>
+	</header>
+    <div class="background">
+        <div class="shape"></div>
+    </div>
+    <div id="map"  class="location-map"></div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.7.1/leaflet.js" integrity="sha512-T6Npkb6VdZP9By4q3o8P4yBkEJm1N2mROIVR8W19ZK7DrZPLXrkzyylHQvCT8aLquybB+BAkUsszGGsA1mzhgQ==" crossorigin=""></script>
+	<script>
+        var map = L.map('map').setView([10.2718,76.0130], 8);
+      
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    attribution: '&copy; <a href="https://osm.org/copyright">OpenStreetMap</a> contributors'
+  }).addTo(map);
+      
+        var marker;
+        var initialMarker = L.marker([10.2718,76.0130]).addTo(map);
+      
+        initialMarker.on('click', function(e) {
+          map.removeLayer(marker); // Remove the existing marker if any
+          marker = null;
+        });
+      
+        map.on('click', function(e) {
+          if (!marker) {
+            marker = L.marker(e.latlng).addTo(map);
+            var distance = e.latlng.distanceTo(initialMarker.getLatLng()).toFixed(2);
+            alert('Distance between markers: ' + distance + ' meters');
+          }
+        });
+</script>
+<script src="{% static 'js/jquery.min.js' %}"></script>
+	<script src="{% static 'js/jquery.easing.1.3.js' %}"></script>
+	<script src="{% static 'js/bootstrap.min.js' %}"></script>
+	<script src="{% static 'js/jquery.waypoints.min.js' %}"></script>
+	<script src="{% static 'js/jquery.magnific-popup.min.js' %}"></script>
+	<script src="{% static 'js/salvattore.min.js' %}"></script>
+	<script src="{% static 'js/main.js' %}"></script>
+</body>
+</html>
